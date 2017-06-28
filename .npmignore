@@ -1,0 +1,15 @@
+﻿# https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
+
+# dependencies
+/node_modules
+yarn.*
+
+# IDEs and editors
+/.idea
+
+# ci tools
+.bithoundrc
+
+# misc
+/.github
+npm-debug.log
