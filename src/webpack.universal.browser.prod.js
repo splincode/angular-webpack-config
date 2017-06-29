@@ -22,7 +22,7 @@ module.exports = function(root, settings) {
     plugins: [
       new aotPlugin({
         tsConfigPath: './tsconfig.json',
-        entryModule: root(`${settings.paths.src.client.app}/app.browser.module#AppBrowserModule`)
+        entryModule: root(`${settings.paths.src.client.app.root}/app.browser.module#AppBrowserModule`)
       })
     ],
   });

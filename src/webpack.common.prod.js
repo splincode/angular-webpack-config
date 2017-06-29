@@ -142,7 +142,7 @@ const browserConfig = function(root, settings) {
         }
       }),
 
-      // Fix Angular
+      // fix Angular
       new normalModuleReplacementPlugin(
         /facade([\\\/])async/,
         root(`${settings.paths.NODE_MODULES}/@angular/core/src/facade/async.js`)
