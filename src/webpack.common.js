@@ -6,12 +6,10 @@ const webpackMerge = require('webpack-merge');
 const definePlugin = require('webpack/lib/DefinePlugin'),
   checkerPlugin = require('awesome-typescript-loader').CheckerPlugin,
   aotPlugin = require('@ngtools/webpack').AotPlugin,
-  copyWebpackPlugin = require('copy-webpack-plugin'),
   loaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin'),
   assetsPlugin = require('assets-webpack-plugin'),
   htmlWebpackPlugin = require('html-webpack-plugin'),
   extractTextPlugin = require('extract-text-webpack-plugin'),
-  htmlElementsWebpackPlugin = require('html-elements-webpack-plugin'),
   scriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 const defaultConfig = function(options, root, settings) {
@@ -38,7 +36,7 @@ const defaultConfig = function(options, root, settings) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-path
        */
-      path: root(settings.paths.public.assets),
+      path: root(settings.paths.public.assets.root),
       publicPath: 'assets/'
     },
 
@@ -331,9 +329,12 @@ const browserConfig = function(options, root, settings) {
           include: root(settings.paths.src.client.assets.sass),
           use: extractTextPlugin.extract({
             fallback: 'style-loader',
-            //use: `css-loader${isProd ? '?minimize' : '?sourceMap'}!postcss-loader!sass-loader${!isProd ? '?sourceMap' : ''}!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
             // TODO: temporarily disabled for sourcemaps interference
-            use: `css-loader!postcss-loader!sass-loader!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
+            // use: `css-loader${isProd ? '?minimize' : '?sourceMap'}`
+            //   + '!postcss-loader'
+            //   + `!sass-loader${!isProd ? '?sourceMap' : ''}`
+            //   + `!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
+            use: `css-loader!sass-loader`
           })
         },
 
@@ -346,17 +347,17 @@ const browserConfig = function(options, root, settings) {
          */
         {
           test: /\.scss$/,
-          include: root(settings.paths.src.client.app),
+          include: root(settings.paths.src.client.app.root),
           use: [
+            // TODO: temporarily disabled for sourcemaps interference
+            // 'to-string-loader',
+            // `css-loader${isProd ? '?minimize' : '?sourceMap'}`,
+            // 'postcss-loader',
+            // `sass-loader${!isProd ? '?sourceMap' : ''}`,
+            // `stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
             'to-string-loader',
-            // TODO: temporarily disabled for sourcemaps interference
-            //`css-loader${isProd ? '?minimize' : '?sourceMap'}`,
-            `css-loader`,
-            'postcss-loader',
-            // TODO: temporarily disabled for sourcemaps interference
-            //`sass-loader${!isProd ? '?sourceMap' : ''}`,
-            `sass-loader`,
-            `stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
+            'css-loader',
+            'sass-loader'
           ]
         },
 
@@ -396,33 +397,10 @@ const browserConfig = function(options, root, settings) {
        * See: https://github.com/kossnocorp/assets-webpack-plugin
        */
       new assetsPlugin({
-        path: root(settings.paths.public.assets),
+        path: root(settings.paths.public.assets.root),
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),
-
-      /**
-       * Plugin: CopyWebpackPlugin
-       * Description: Copy files and directories in webpack.
-       *
-       * Copies project static assets.
-       *
-       * See: https://www.npmjs.com/package/copy-webpack-plugin
-       */
-      new copyWebpackPlugin([
-        {
-          from: `${root(settings.paths.src.client.assets.root)}/config.json`,
-          to: './config.json'
-        },
-        {
-          from: `${root(settings.paths.src.client.assets.root)}/i18n/en.json`,
-          to: './i18n/en.json'
-        },
-        {
-          from: `${root(settings.paths.src.client.assets.root)}/i18n/tr.json`,
-          to: './i18n/tr.json'
-        }
-      ]),
 
       /**
        * Plugin: HtmlWebpackPlugin
@@ -444,30 +422,6 @@ const browserConfig = function(options, root, settings) {
        * See: https://github.com/webpack/extract-text-webpack-plugin
        */
       new extractTextPlugin(`[name]${isProd ? '.[chunkhash]' : ''}.style.css`),
-
-      /**
-       * Plugin: HtmlElementsWebpackPlugin
-       * Description: Generate html tags based on javascript maps.
-       *
-       * If a publicPath is set in the webpack output configuration, it will be automatically added to
-       * href attributes, you can disable that by adding a "=href": false property.
-       * You can also enable it to other attribute by settings "=attName": true.
-       *
-       * The configuration supplied is map between a location (key) and an element definition object (value)
-       * The location (key) is then exported to the template under then htmlElements property in webpack configuration.
-       *
-       * Example:
-       *  Adding this plugin configuration
-       *  new HtmlElementsWebpackPlugin({
-           *    headTags: { ... }
-           *  })
-       *
-       *  Means we can use it in the template like this:
-       *  <%= webpackConfig.htmlElements.headTags %>
-       *
-       * Dependencies: HtmlWebpackPlugin
-       */
-      new htmlElementsWebpackPlugin(require(root(`${settings.paths.config}/html-elements.config`))),
 
       /**
        * Plugin: ScriptExtHtmlWebpackPlugin
