@@ -327,15 +327,13 @@ const browserConfig = function(options, root, settings) {
         {
           test: /\.scss$/,
           include: root(settings.paths.src.client.assets.sass),
-          use: extractTextPlugin.extract({
+          use: isProd ?
+          extractTextPlugin.extract({
             fallback: 'style-loader',
-            // TODO: temporarily disabled for sourcemaps interference
-            // use: `css-loader${isProd ? '?minimize' : '?sourceMap'}`
-            //   + '!postcss-loader'
-            //   + `!sass-loader${!isProd ? '?sourceMap' : ''}`
-            //   + `!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
-            use: `css-loader!sass-loader`
+            use: `css-loader?minimize!postcss-loader!sass-loader!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
           })
+          :
+          ['style-loader','css-loader','sass-loader'],
         },
 
         /**
