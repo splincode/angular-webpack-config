@@ -381,7 +381,7 @@ const browserConfig = function(options, root, settings) {
          */
         {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-          use: 'file-loader?name=assets/[name].[chunkhash].[ext]'
+          use: 'file-loader?name=assets/[name].[hash].[ext]'
         }
       ]
     },
