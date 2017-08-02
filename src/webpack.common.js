@@ -259,7 +259,7 @@ const serverConfig = function(root, settings) {
 };
 
 const browserConfig = function(options, root, settings) {
-  const isProd = options.env === 'production';
+  const isProd = options.env === 'prod' || options.env === 'production';
 
   return {
     target: 'web',

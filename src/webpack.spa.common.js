@@ -1,7 +1,9 @@
 /**
  * Webpack helpers & dependencies
  */
-const defaultConfig = function (root, settings) {
+const defaultConfig = function (options, root, settings) {
+  const isProd = options.env === 'prod' || options.env === 'production';
+
   return {
     /**
      * The entry point for the bundle
@@ -11,7 +13,7 @@ const defaultConfig = function (root, settings) {
      */
     entry: {
       'polyfills': root(`${settings.paths.src.client.root}/polyfills.ts`),
-      'app': root(`${settings.paths.src.client.root}/main-spa.ts`)
+      'app': root(`${settings.paths.src.client.root}/main-spa${isProd ? '-aot' : ''}.ts`)
     },
 
     /**
@@ -36,6 +38,6 @@ const defaultConfig = function (root, settings) {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(root, settings) {
-  return defaultConfig(root, settings);
+module.exports = function(options, root, settings) {
+  return defaultConfig(options, root, settings);
 };
