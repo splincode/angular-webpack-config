@@ -327,13 +327,14 @@ const browserConfig = function(options, root, settings) {
         {
           test: /\.scss$/,
           include: root(settings.paths.src.client.assets.sass),
-          use: isProd ?
-          extractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: `css-loader?minimize!postcss-loader!sass-loader!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
-          })
-          :
-          ['style-loader','css-loader','sass-loader'],
+          use: isProd
+            ? extractTextPlugin.extract({
+              fallback: 'style-loader',
+              use: `css-loader?minimize!postcss-loader!sass-loader!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
+            })
+            // TODO: temporarily disabled for sourcemaps interference
+            // : ['style-loader','css-loader?sourceMap','sass-loader?sourceMap'],
+            : ['style-loader','css-loader','sass-loader'],
         },
 
         /**
@@ -346,17 +347,17 @@ const browserConfig = function(options, root, settings) {
         {
           test: /\.scss$/,
           include: root(settings.paths.src.client.app.root),
-          use: [
+          use: isProd
+            ? [
+              'to-string-loader',
+              'css-loader?minimize',
+              'postcss-loader',
+              'sass-loader?minimize',
+              `stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
+            ]
             // TODO: temporarily disabled for sourcemaps interference
-            // 'to-string-loader',
-            // `css-loader${isProd ? '?minimize' : '?sourceMap'}`,
-            // 'postcss-loader',
-            // `sass-loader${!isProd ? '?sourceMap' : ''}`,
-            // `stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
-            'to-string-loader',
-            'css-loader',
-            'sass-loader'
-          ]
+            // : ['to-string-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
+            : ['to-string-loader', 'css-loader', 'sass-loader']
         },
 
         /**
