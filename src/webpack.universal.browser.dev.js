@@ -10,6 +10,6 @@ const defaultConfig = require('./webpack.universal.browser.common'),
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(root, settings) {
-  return webpackMerge(defaultConfig(root, settings), devConfig({platform: 'browser'}, root, settings));
+module.exports = function(options, root, settings) {
+  return webpackMerge(defaultConfig(options, root, settings), devConfig({platform: 'browser'}, root, settings));
 };
