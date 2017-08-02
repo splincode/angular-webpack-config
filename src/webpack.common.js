@@ -326,7 +326,10 @@ const browserConfig = function(options, root, settings) {
          */
         {
           test: /\.scss$/,
-          include: root(settings.paths.src.client.assets.sass),
+          include: [
+            root(settings.paths.src.client.assets.sass),
+            root(settings.paths.NODE_MODULES)
+          ],
           use: isProd
             ? extractTextPlugin.extract({
               fallback: 'style-loader',
