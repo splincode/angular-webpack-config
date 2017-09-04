@@ -1,6 +1,7 @@
 # angular-webpack-config
 Shared [Webpack] config for [Angular] development
 
+[![CircleCI](https://circleci.com/gh/ng-seed/angular-webpack-config.svg?style=shield)](https://circleci.com/gh/ng-seed/angular-webpack-config)
 [![npm version](https://badge.fury.io/js/angular-webpack-config.svg)](https://www.npmjs.com/package/angular-webpack-config)
 
 > Please support this project by simply putting a Github star. Share this library with friends on Twitter and everywhere else you can.
