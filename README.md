@@ -1,8 +1,10 @@
 # angular-webpack-config [![npm version](https://badge.fury.io/js/angular-webpack-config.svg)](https://www.npmjs.com/package/angular-webpack-config) [![npm downloads](https://img.shields.io/npm/dm/angular-webpack-config.svg)](https://www.npmjs.com/package/angular-webpack-config)
+
 Shared [Webpack] config for [Angular] development
 
 [![CircleCI](https://circleci.com/gh/ng-seed/angular-webpack-config.svg?style=shield)](https://circleci.com/gh/ng-seed/angular-webpack-config)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![Greenkeeper badge](https://badges.greenkeeper.io/ng-seed/angular-webpack-config.svg)](https://greenkeeper.io/)
 
 > Please support this project by simply putting a Github star. Share this library with friends on Twitter and everywhere else you can.
 
