@@ -375,13 +375,37 @@ const browserConfig = function(options, root, settings) {
         },
 
         /**
-         * file-loader for images & fonts
+         * file-loader for images
          *
          * See: https://github.com/webpack-contrib/file-loader
          */
         {
-          test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-          use: 'file-loader?name=assets/[name].[hash].[ext]'
+          test: /\.(png|jpe?g|gif|ico)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: `${settings.publicPaths.assets}[name].[hash].[ext]`
+              }
+            }
+          ]
+        },
+
+        /**
+         * file-loader for fonts
+         *
+         * See: https://github.com/webpack-contrib/file-loader
+         */
+        {
+          test: /\.(svg|woff|woff2|ttf|eot)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: `${settings.publicPaths.assets}[name].[hash].[ext]`
+              }
+            }
+          ]
         }
       ]
     },
