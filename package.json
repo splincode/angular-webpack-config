@@ -1,6 +1,6 @@
 {
   "name": "angular-webpack-config",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Shared Webpack config for Angular development",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   "scripts": {
     "ci:before": "greenkeeper-lockfile-update",
     "ci:after": "greenkeeper-lockfile-upload",
-    "release": "npm run standard-version"
+    "release": "standard-version"
   },
   "main": "./index.js",
   "devDependencies": {
