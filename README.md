@@ -25,14 +25,137 @@ npm install angular-webpack-config --save
 **Note**: You should have already installed [Webpack].
 
 ## <a name="usage"></a> Usage
-To use this [Webpack] configuration, please refer to [ng-seed/universal] repository.
+To use this [Webpack] configuration preset, you should first have a `build-config.json` file, with the following structure:
+
+```json
+{
+  "host": "localhost", // hostname of your app
+  "port": {
+    "browser": 1337, // port number (browser bundle)
+    "server": 8000 // port number (server bundle)
+  },
+  "root": ".", // root path (default value recommended)
+  "paths": { // path to seek for sources (default value recommended)
+    "src": {
+      "root": "{{root}}/src",
+      "client": {
+        "root": "{{src_root}}/client",
+        "app": {
+          "root": "{{src_client_root}}/app" 
+        },
+        "assets": {
+          "root": "{{src_client_root}}/assets",
+          "sass": "{{src_assets_root}}/sass"
+        }
+      },
+      "server": {
+        "root": "{{src_root}}/server",
+        "app": "{{src_server_root}}/app"
+      }
+    },
+    "tools" : {
+      "root": "{{root}}/tools",
+      "build": "{{tools_root}}/build", // build scripts (gulp, webpack, etc.) 
+      "config": "{{tools_root}}/config", // config files (stylelint, postcss, etc.)
+      "test": "{{tools_root}}/test" // test scripts (karma, jest, etc.) 
+    },
+    "public": { // path to extract client bundles (default value recommended)
+      "root": "{{root}}/public",
+      "assets": {
+        "root": "{{public_root}}/assets"
+      }
+    },
+    "server": "{{root}}/.server", // path to extract server bundle (default value recommended)
+    "cache": "{{root}}/.cache", // cache path for ngx-cache (default value recommended)
+    "temp": {
+      "root": "{{root}}/.temp",
+      "dll": "{{temp_root}}/dll"
+    },
+    "NODE_MODULES": "{{root}}/node_modules"
+  },
+  "publicPaths": {
+    "assets": "assets/" // you can use either `assets/` (relative) or `/assets/` (absolute), or a custom assets path
+  },
+  "webpack": {
+    "devtool": { // source maps for each ENV
+      "DEV": "cheap-module-source-map",
+      "PROD": "source-map",
+      "TEST": "inline-source-map"
+    },
+    "bundles": { // here we specify our bundles for  DLL plugin
+      "polyfills": [
+        "core-js",
+        {
+          "name": "zone.js",
+          "path": "zone.js/dist/zone.js"
+        },
+        {
+          "name": "zone.js",
+          "path": "zone.js/dist/long-stack-trace-zone.js"
+        }
+      ],
+      "angular": [
+        "@angular/animations",
+        "@angular/common",
+        "@angular/compiler",
+        "@angular/core",
+        "@angular/forms",
+        "@angular/http",
+        "@angular/platform-browser",
+        "@angular/platform-browser-dynamic",
+        "@angular/platform-server",
+        "@angular/router"
+      ],
+      "vendor": [ // vendor plugins (ex: "lodash", "@ngx-meta/core", etc.)
+        "core-js",
+        "rxjs",
+        "zone.js",
+        ...
+      ]
+    }
+  }
+}
+``` 
+
+Then in your task runner, import the `angular-webpack-config` and your `build-config.json`:
+```javascript
+const webpackConfig = require('angular-webpack-config');
+const settings = require('./build-config.json');
+```
+
+Then simply create a `root` function to resolve the root path of your app from your task runner:
+```javascript
+const root = function(args) {
+  const ROOT = path.resolve(__dirname, '../..'); // IMPORTANT: adjust per your own directory structure
+  args = Array.prototype.slice.call(arguments, 0);
+
+  return path.join.apply(path, [ROOT].concat(args));
+};
+```
+
+And finally, execute the `webpackConfig` function to generate your bundles:
+```javascript
+// SPA bundles
+webpackConfig.spa.hmr(root, settings); // DEV env + HMR
+webpackConfig.spa.dev(root, settings); // DEV env
+webpackConfig.spa.prod(root, settings); // PROD env
+
+// UNIVERSAL bundles
+webpackConfig.universal.browser.dev(root, settings); // DEV env (browser)
+webpackConfig.universal.server.dev(root, settings); // DEV env (server)
+
+webpackConfig.universal.browser.prod(root, settings); // PROD env (browser)
+webpackConfig.universal.server.prod(root, settings); // PROD env (server)
+```
+
+For live demo, please refer to [ng-seed/universal] repository.
 
 ## <a name="contributing"></a> Contributing
 If you want to file a bug, contribute some code, or improve documentation, please read up on the following contribution guidelines:
 - [Issue guidelines](CONTRIBUTING.md#submit)
 - [Contributing guidelines](CONTRIBUTING.md)
 - [Coding rules](CONTRIBUTING.md#rules)
-- [ChangeLog](CHANGELOG.md)
+- [Change log](CHANGELOG.md)
 
 ## <a name="license"></a> License
 The MIT License (MIT)
