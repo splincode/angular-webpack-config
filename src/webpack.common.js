@@ -51,7 +51,7 @@ const defaultConfig = function(options, root, settings) {
        *
        * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
        */
-      extensions: ['.ts', '.js'],
+      extensions: ['.ts', '.js', '.json'],
 
       // An array of directory names to be resolved to the current directory
       modules: [
