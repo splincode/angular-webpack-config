@@ -36,7 +36,7 @@ const hmrConfig = function(root, settings) {
        * See: http://webpack.github.io/docs/configuration.html#output-path
        */
       path: root(settings.paths.public.assets.root),
-      publicPath: `http://${settings.host}:${settings.port.browser}/assets/`
+      publicPath: `http://${settings.host}:${settings.port.browser}/${settings.publicPaths.assets}`
     },
 
     /**
