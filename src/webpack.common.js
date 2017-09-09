@@ -37,7 +37,7 @@ const defaultConfig = function(options, root, settings) {
        * See: http://webpack.github.io/docs/configuration.html#output-path
        */
       path: root(settings.paths.public.assets.root),
-      publicPath: 'assets/'
+      publicPath: settings.publicPaths.assets
     },
 
     /**
