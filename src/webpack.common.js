@@ -333,7 +333,7 @@ const browserConfig = function(options, root, settings) {
           use: isProd
             ? extractTextPlugin.extract({
               fallback: 'style-loader',
-              use: `css-loader?minimize!postcss-loader!sass-loader!stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
+              use: `css-loader?minimize!postcss-loader!sass-loader!stylefmt-loader?config=${settings.paths.tools.config}/stylelint.config.js`
             })
             // TODO: temporarily disabled for sourcemaps interference
             // : ['style-loader','css-loader?sourceMap','sass-loader?sourceMap'],
@@ -356,7 +356,7 @@ const browserConfig = function(options, root, settings) {
               'css-loader?minimize',
               'postcss-loader',
               'sass-loader?minimize',
-              `stylefmt-loader?config=${settings.paths.config}/stylelint.config.js`
+              `stylefmt-loader?config=${settings.paths.tools.config}/stylelint.config.js`
             ]
             // TODO: temporarily disabled for sourcemaps interference
             // : ['to-string-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
