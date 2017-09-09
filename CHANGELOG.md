@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# 1.2.0 (2017-09-09)
+
+
+### Bug Fixes
+
+* **awc:** fix paths for stylelint config ([#22](https://github.com/ng-seed/angular-webpack-config/issues/22)) ([3e0c238](https://github.com/ng-seed/angular-webpack-config/commit/3e0c238)), closes [#21](https://github.com/ng-seed/angular-webpack-config/issues/21)
+
+
+### Features
+
+* **awc:** remove unnecessary arguments from public API ([#24](https://github.com/ng-seed/angular-webpack-config/issues/24)) ([7641f93](https://github.com/ng-seed/angular-webpack-config/commit/7641f93)), closes [#23](https://github.com/ng-seed/angular-webpack-config/issues/23)
+
+
+
 <a name="1.1.0"></a>
 # 1.1.0 (2017-09-09)
 
