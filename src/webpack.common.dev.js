@@ -5,7 +5,8 @@ const commonConfig = require('./webpack.common'),
   webpackMerge = require('webpack-merge'),
   webpackMergeDll = webpackMerge.strategy({plugins: 'replace'});
 
-const dllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin,
+const hardSourceWebpackPlugin = require('hard-source-webpack-plugin'),
+  dllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin,
   commonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin'),
   addAssetHtmlPlugin = require('add-asset-html-webpack-plugin'),
   loaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
@@ -41,6 +42,14 @@ const defaultConfig = function(settings) {
 };
 
 const browserConfig = function(root, settings) {
+  const pkg = require(root('package.json'));
+  const ignore = list => key => !list.includes(key);
+
+  const exclusions = [
+    ...new Set(settings.webpack.bundles.polyfills.map(cur => cur.name || cur)),
+    ...new Set(settings.webpack.bundles.server)
+  ];
+
   return {
     /**
      * Options affecting the output of the compilation.
@@ -72,7 +81,7 @@ const browserConfig = function(root, settings) {
       chunkFilename: '[id].chunk.js',
 
       libraryTarget: 'var',
-      library: 'ng_seed_[name]'
+      library: '_awc'
     },
 
     /**
@@ -90,15 +99,23 @@ const browserConfig = function(root, settings) {
       new dllBundlesPlugin({
         bundles: {
           polyfills: settings.webpack.bundles.polyfills,
-          vendor: settings.webpack.bundles.angular.concat(settings.webpack.bundles.vendor)
+          vendor: Object.keys(pkg.dependencies).filter(ignore(exclusions))
         },
-        dllDir: root(`${settings.paths.temp.dll}`),
+        dllDir: root(`node_modules/.cache/dll`),
         webpackConfig: webpackMergeDll(commonConfig({env: ENV}, root, settings),
           {
             devtool: settings.webpack.devtool.DEV,
             plugins: []
           })
       }),
+
+      /**
+       * Plugin: HardSourceWebpackPlugin
+       * Description: Provides intermediate caching step for modules
+       *
+       * See: https://github.com/mzgoddard/hard-source-webpack-plugin
+       */
+      new hardSourceWebpackPlugin(),
 
       /**
        * Plugin: CommonsChunkPlugin
@@ -132,8 +149,8 @@ const browserConfig = function(root, settings) {
        * See: https://github.com/SimenB/add-asset-html-webpack-plugin
        */
       new addAssetHtmlPlugin([
-        {filepath: root(`${settings.paths.temp.dll}/${dllBundlesPlugin.resolveFile('polyfills')}`)},
-        {filepath: root(`${settings.paths.temp.dll}/${dllBundlesPlugin.resolveFile('vendor')}`)}
+        {filepath: root(`node_modules/.cache/dll/${dllBundlesPlugin.resolveFile('polyfills')}`)},
+        {filepath: root(`node_modules/.cache/dll/${dllBundlesPlugin.resolveFile('vendor')}`)}
       ]),
 
       /**

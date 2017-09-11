@@ -23,8 +23,7 @@ const loadSettings = function(settings) {
 
   result = $.jsonSub.substituteSync(result, {
     '{{src_root}}': result.paths.src.root,
-    '{{public_root}}': result.paths.public.root,
-    '{{temp_root}}': result.paths.temp.root,
+    '{{public_root}}': result.paths.public.root
   });
 
   result = $.jsonSub.substituteSync(result, {

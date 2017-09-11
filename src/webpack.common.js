@@ -55,7 +55,7 @@ const defaultConfig = function(options, root, settings) {
 
       // An array of directory names to be resolved to the current directory
       modules: [
-        root(settings.paths.NODE_MODULES),
+        root('node_modules'),
         root()
       ]
     },
@@ -177,7 +177,7 @@ const serverConfig = function(root, settings) {
           test: /\.ts$/,
           use: 'tslint-loader',
           exclude: [
-            root(settings.paths.NODE_MODULES),
+            root('node_modules'),
             /\.(ngfactory|ngstyle)\.ts$/
           ]
         },
@@ -281,7 +281,7 @@ const browserConfig = function(options, root, settings) {
           test: /\.ts$/,
           use: 'tslint-loader',
           exclude: [
-            root(settings.paths.NODE_MODULES),
+            root('node_modules'),
             /\.(ngfactory|ngstyle)\.ts$/
           ]
         },
@@ -328,7 +328,7 @@ const browserConfig = function(options, root, settings) {
           test: /\.scss$/,
           include: [
             root(settings.paths.src.client.assets.sass),
-            root(settings.paths.NODE_MODULES)
+            root('node_modules')
           ],
           use: isProd
             ? extractTextPlugin.extract({

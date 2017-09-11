@@ -1,7 +1,7 @@
 {
   "name": "angular-webpack-config",
   "version": "1.2.0",
-  "description": "Shared Webpack config for Angular development",
+  "description": "Shared Webpack config for Angular SPA/Universal development (w/Dll Bundles, Hard Source plugins)",
   "repository": {
     "type": "git",
     "url": "https://github.com/ng-seed/angular-webpack-config.git"
@@ -33,6 +33,8 @@
     "json-sub": "1.1.0",
     "webpack": ">=2.2.0 || >=3.0.0",
     "webpack-merge": ">=4.1.0",
+    "webpack-dev-middleware": ">=1.12.0",
+    "webpack-hot-middleware": ">=2.19.1",
     "@ngtools/webpack": ">=1.5.5",
     "tslint-loader": ">=3.5.3",
     "awesome-typescript-loader": ">=3.2.3",
@@ -52,6 +54,7 @@
     "html-webpack-plugin": ">=2.30.1",
     "script-ext-html-webpack-plugin": ">=1.8.5",
     "webpack-dll-bundles-plugin": ">=1.0.0-beta.5",
+    "hard-source-webpack-plugin": ">=0.4.9",
     "add-asset-html-webpack-plugin": ">=2.1.1",
     "optimize-js-plugin": ">=0.0.4",
     "extract-text-webpack-plugin": ">=3.0.0"

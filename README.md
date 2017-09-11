@@ -1,6 +1,6 @@
 # angular-webpack-config [![npm version](https://badge.fury.io/js/angular-webpack-config.svg)](https://www.npmjs.com/package/angular-webpack-config) [![npm downloads](https://img.shields.io/npm/dm/angular-webpack-config.svg)](https://www.npmjs.com/package/angular-webpack-config)
 
-Shared [Webpack] config for [Angular] development
+Shared [Webpack] config for [Angular] SPA/Universal development (w/Dll Bundles, Hard Source plugins)
 
 [![CircleCI](https://circleci.com/gh/ng-seed/angular-webpack-config.svg?style=shield)](https://circleci.com/gh/ng-seed/angular-webpack-config)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
@@ -25,7 +25,7 @@ npm install angular-webpack-config --save
 **Note**: You should have already installed [Webpack].
 
 ## <a name="usage"></a> Usage
-To use this [Webpack] configuration preset, you should first have a `build-config.json` file, with the following structure:
+To use this [Webpack] **configuration preset**, you should first have a **`build-config.json`** file, with the following structure:
 
 ```json
 {
@@ -65,13 +65,7 @@ To use this [Webpack] configuration preset, you should first have a `build-confi
         "root": "{{public_root}}/assets"
       }
     },
-    "server": "{{root}}/.server", // path to extract server bundle (default value recommended)
-    "cache": "{{root}}/.cache", // cache path for ngx-cache (default value recommended)
-    "temp": {
-      "root": "{{root}}/.temp",
-      "dll": "{{temp_root}}/dll"
-    },
-    "NODE_MODULES": "{{root}}/node_modules"
+    "server": "{{root}}/.server" // path to extract server bundle (default value recommended)
   },
   "publicPaths": {
     "assets": "assets/" // you can use either `assets/` (relative) or `/assets/` (absolute), or a custom assets path
@@ -94,36 +88,25 @@ To use this [Webpack] configuration preset, you should first have a `build-confi
           "path": "zone.js/dist/long-stack-trace-zone.js"
         }
       ],
-      "angular": [
-        "@angular/animations",
-        "@angular/common",
-        "@angular/compiler",
-        "@angular/core",
-        "@angular/forms",
-        "@angular/http",
-        "@angular/platform-browser",
-        "@angular/platform-browser-dynamic",
-        "@angular/platform-server",
-        "@angular/router"
-      ],
-      "vendor": [ // vendor plugins (ex: "lodash", "@ngx-meta/core", etc.)
-        "core-js",
-        "rxjs",
-        "zone.js",
-        ...
+      "server": [
+        "express",
+        "debug",
+        "compression",
+        "morgan",
+        "body-parser"
       ]
     }
   }
 }
 ``` 
 
-Then in your task runner, import the `angular-webpack-config` and your `build-config.json`:
+Then in your _task runner_, import the **`angular-webpack-config`** and your **`build-config.json`**:
 ```javascript
 const webpackConfig = require('angular-webpack-config');
 const settings = require('./build-config.json');
 ```
 
-Then simply create a `root` function to resolve the root path of your app from your task runner:
+Then simply create a **`root`** function to _resolve the **root path** of your app_ from your task runner:
 ```javascript
 const root = function(args) {
   const ROOT = path.resolve(__dirname, '../..'); // IMPORTANT: adjust per your own directory structure
@@ -133,7 +116,7 @@ const root = function(args) {
 };
 ```
 
-And finally, execute the `webpackConfig` function to generate your bundles:
+And finally, execute the **`webpackConfig`** function to _**generate** your bundles_:
 ```javascript
 // SPA bundles
 webpackConfig.spa.hmr(root, settings); // DEV env + HMR

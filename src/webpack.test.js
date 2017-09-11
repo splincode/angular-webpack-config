@@ -40,7 +40,7 @@ module.exports = function(root, settings) {
        */
       modules: [
         root(settings.paths.src.client.root),
-        root(settings.paths.NODE_MODULES)
+        root('node_modules')
       ]
     },
 
@@ -62,8 +62,8 @@ module.exports = function(root, settings) {
           use: 'source-map-loader',
           exclude: [
             // these packages have problems with their sourcemaps
-            root(`${settings.paths.NODE_MODULES}/rxjs`),
-            root(`${settings.paths.NODE_MODULES}/@angular`)
+            root(`node_modules/rxjs`),
+            root(`node_modules/@angular`)
           ]
         },
 
@@ -140,7 +140,7 @@ module.exports = function(root, settings) {
           use: 'istanbul-instrumenter-loader?esModules',
           include: root(settings.paths.src.client.root),
           exclude: [
-            root(settings.paths.NODE_MODULES),
+            root('node_modules'),
             /\.(e2e|spec|d)\.ts$/
           ]
         }

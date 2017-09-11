@@ -145,23 +145,23 @@ const browserConfig = function(root, settings) {
       // fix Angular
       new normalModuleReplacementPlugin(
         /facade([\\\/])async/,
-        root(`${settings.paths.NODE_MODULES}/@angular/core/src/facade/async.js`)
+        root(`node_modules/@angular/core/src/facade/async.js`)
       ),
       new normalModuleReplacementPlugin(
         /facade([\\\/])collection/,
-        root(`${settings.paths.NODE_MODULES}/@angular/core/src/facade/collection.js`)
+        root(`node_modules/@angular/core/src/facade/collection.js`)
       ),
       new normalModuleReplacementPlugin(
         /facade([\\\/])errors/,
-        root(`${settings.paths.NODE_MODULES}/@angular/core/src/facade/errors.js`)
+        root(`node_modules/@angular/core/src/facade/errors.js`)
       ),
       new normalModuleReplacementPlugin(
         /facade([\\\/])lang/,
-        root(`${settings.paths.NODE_MODULES}/@angular/core/src/facade/lang.js`)
+        root(`node_modules/@angular/core/src/facade/lang.js`)
       ),
       new normalModuleReplacementPlugin(
         /facade([\\\/])math/,
-        root(`${settings.paths.NODE_MODULES}/@angular/core/src/facade/math.js`)
+        root(`node_modules/@angular/core/src/facade/math.js`)
       ),
 
       /**
