@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# 1.3.0 (2017-09-11)
+
+
+### Features
+
+* **awc:** use HardSource plugin with DllBundle ([#28](https://github.com/ng-seed/angular-webpack-config/issues/28)) ([3abfec7](https://github.com/ng-seed/angular-webpack-config/commit/3abfec7)), closes [#27](https://github.com/ng-seed/angular-webpack-config/issues/27)
+
+
+
 <a name="1.2.0"></a>
 # 1.2.0 (2017-09-09)
 
