@@ -7,7 +7,7 @@ const commonConfig = require('./webpack.common'),
 const noEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin'),
   optimizeJsPlugin = require('optimize-js-plugin'),
   commonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin'),
-  uglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin'),
+  uglifyJsPlugin = require('uglifyjs-webpack-plugin'),
   normalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin'),
   loaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
@@ -120,25 +120,8 @@ const browserConfig = function(root) {
        * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
        */
       new uglifyJsPlugin({
-        // beautify: false,
-        // mangle: {
-        //   screw_ie8: true
-        // },
-        output: {
-          comments: false
-        },
-        compress: {
-          screw_ie8: true,
-          warnings: false,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true,
-          negate_iife: false // we need this for lazy v8
+        uglifyOptions: {
+          ecma: 6
         }
       }),
 
@@ -210,23 +193,9 @@ const serverConfig = function() {
        * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
        */
       new uglifyJsPlugin({
-        // beautify: false,
-        mangle: false, // to ensure process.env still works
-        output: {
-          comments: false
-        },
-        compress: {
-          screw_ie8: true,
-          warnings: false,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true,
-          negate_iife: false // we need this for lazy v8
+        uglifyOptions: {
+          ecma: 6,
+          mangle: false
         }
       })
     ]

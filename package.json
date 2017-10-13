@@ -57,6 +57,7 @@
     "hard-source-webpack-plugin": ">=0.4.9",
     "add-asset-html-webpack-plugin": ">=2.1.2",
     "optimize-js-plugin": ">=0.0.4",
+    "uglifyjs-webpack-plugin": ">=1.0.0-beta.3",
     "extract-text-webpack-plugin": ">=3.0.1"
   }
 }
