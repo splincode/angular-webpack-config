@@ -61,7 +61,7 @@ const defaultConfig = function() {
   };
 };
 
-const browserConfig = function(root, settings) {
+const browserConfig = function(root) {
   return {
     /**
      * Options affecting the output of the compilation.
@@ -242,5 +242,5 @@ module.exports = function(options, root, settings) {
   return webpackMerge(commonConfig({
     env: ENV,
     platform: options.platform
-  }, root, settings), defaultConfig(), options.platform === 'server' ? serverConfig() : browserConfig(root, settings));
+  }, root, settings), defaultConfig(), options.platform === 'server' ? serverConfig() : browserConfig(root));
 };

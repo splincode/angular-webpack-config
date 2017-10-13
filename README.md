@@ -68,7 +68,9 @@ To use this [Webpack] **configuration preset**, you should first have a **`build
     "server": "{{root}}/.server" // path to extract server bundle (default value recommended)
   },
   "publicPaths": {
-    "assets": "assets/" // you can use either `assets/` (relative) or `/assets/` (absolute), or a custom assets path
+    "assets": "assets/", // you can use either `assets/` (relative) or `/assets/` (absolute), or a custom assets path
+    "images": "assets/img",
+    "fonts": "assets/fonts"
   },
   "webpack": {
     "devtool": { // source maps for each ENV
