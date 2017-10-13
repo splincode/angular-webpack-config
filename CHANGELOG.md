@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# 1.4.0 (2017-10-13)
+
+
+### Bug Fixes
+
+* **awc:** add loaders for local fonts ([#36](https://github.com/ng-seed/angular-webpack-config/issues/36)) ([eb027c8](https://github.com/ng-seed/angular-webpack-config/commit/eb027c8)), closes [#33](https://github.com/ng-seed/angular-webpack-config/issues/33)
+
+
+### Features
+
+* **awc:** use uglifyjs-webpack-plugin ([#37](https://github.com/ng-seed/angular-webpack-config/issues/37)) ([278ccb8](https://github.com/ng-seed/angular-webpack-config/commit/278ccb8))
+
+
+
 <a name="1.3.0"></a>
 # 1.3.0 (2017-09-11)
 
