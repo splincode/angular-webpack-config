@@ -5,14 +5,14 @@ const webpackMerge = require('webpack-merge');
 
 const definePlugin = require('webpack/lib/DefinePlugin'),
   checkerPlugin = require('awesome-typescript-loader').CheckerPlugin,
-  aotPlugin = require('@ngtools/webpack').AotPlugin,
+  angularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin,
   loaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin'),
   // assetsPlugin = require('assets-webpack-plugin'),
   htmlWebpackPlugin = require('html-webpack-plugin'),
   extractTextPlugin = require('extract-text-webpack-plugin'),
   scriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
-const defaultConfig = function(options, root, settings) {
+const defaultConfig = function (options, root, settings) {
   const PORT = settings.port[options.platform];
 
   return {
@@ -110,7 +110,7 @@ const defaultConfig = function(options, root, settings) {
   };
 };
 
-const serverConfig = function(root, settings) {
+const serverConfig = function (root, settings) {
   return {
     target: 'node',
 
@@ -188,11 +188,10 @@ const serverConfig = function(root, settings) {
          * See: https://github.com/angular/angular-cli
          */
         {
-          test: /\.ts$/,
-          use: '@ngtools/webpack',
+          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          loader: '@ngtools/webpack',
           exclude: [/\.(spec|e2e)\.ts$/]
         },
-
         /**
          * json-loader for *.json
          *
@@ -242,7 +241,7 @@ const serverConfig = function(root, settings) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
-      new aotPlugin({
+      new angularCompilerPlugin({
         tsConfigPath: './tsconfig.json',
         entryModule: root(`${settings.paths.src.server.app}/app.server.module#AppServerModule`),
         skipCodeGeneration: true
@@ -266,7 +265,7 @@ const serverConfig = function(root, settings) {
   };
 };
 
-const browserConfig = function(options, root, settings) {
+const browserConfig = function (options, root, settings) {
   const isProd = options.env === 'prod' || options.env === 'production';
 
   return {
@@ -488,6 +487,6 @@ const browserConfig = function(options, root, settings) {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(options, root, settings) {
+module.exports = function (options, root, settings) {
   return webpackMerge(defaultConfig(options, root, settings), options.platform === 'server' ? serverConfig(root, settings) : browserConfig(options, root, settings));
 };

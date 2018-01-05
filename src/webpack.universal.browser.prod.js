@@ -5,7 +5,7 @@ const defaultConfig = require('./webpack.universal.browser.common'),
   prodConfig = require('./webpack.common.prod'),
   webpackMerge = require('webpack-merge');
 
-const aotPlugin = require('@ngtools/webpack').AotPlugin;
+const angularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 
 /**
  * Webpack configuration
@@ -20,7 +20,7 @@ module.exports = function(root, settings) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
-      new aotPlugin({
+      new angularCompilerPlugin({
         tsConfigPath: './tsconfig.json',
         entryModule: root(`${settings.paths.src.client.app.root}/app.browser.module#AppBrowserModule`)
       })
