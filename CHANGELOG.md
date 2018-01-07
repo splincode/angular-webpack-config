@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0"></a>
+# 5.0.0 (2018-01-07)
+
+
+### Features
+
+* **awc:** upgrade to Angular 5 ([#38](https://github.com/ng-seed/angular-webpack-config/issues/38)) ([25158a1](https://github.com/ng-seed/angular-webpack-config/commit/25158a1))
+
+
+
 <a name="1.4.0"></a>
 # 1.4.0 (2017-10-13)
 
