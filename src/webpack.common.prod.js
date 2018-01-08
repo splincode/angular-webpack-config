@@ -7,7 +7,7 @@ const commonConfig = require('./webpack.common'),
 const noEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin'),
   optimizeJsPlugin = require('optimize-js-plugin'),
   commonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin'),
-  uglifyJsPlugin = require('uglifyjs-webpack-plugin'),
+  // uglifyJsPlugin = require('uglifyjs-webpack-plugin'),
   normalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin'),
   loaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
@@ -112,18 +112,18 @@ const browserConfig = function(root) {
         name: ['app', 'polyfills']
       }),
 
-      /**
-       * Plugin: UglifyJsPlugin
-       * Description: Minimize all JavaScript output of chunks.
-       * Loaders are switched into minimizing mode.
-       *
-       * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-       */
-      new uglifyJsPlugin({
-        uglifyOptions: {
-          ecma: 6
-        }
-      }),
+      // /**
+      //  * Plugin: UglifyJsPlugin
+      //  * Description: Minimize all JavaScript output of chunks.
+      //  * Loaders are switched into minimizing mode.
+      //  *
+      //  * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+      //  */
+      // new uglifyJsPlugin({
+      //   uglifyOptions: {
+      //     ecma: 6
+      //   }
+      // }),
 
       // fix Angular
       new normalModuleReplacementPlugin(
@@ -177,30 +177,30 @@ const browserConfig = function(root) {
   };
 };
 
-const serverConfig = function() {
-  return {
-    /**
-     * Add additional plugins to the compiler.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#plugins
-     */
-    plugins: [
-      /**
-       * Plugin: UglifyJsPlugin
-       * Description: Minimize all JavaScript output of chunks.
-       * Loaders are switched into minimizing mode.
-       *
-       * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-       */
-      new uglifyJsPlugin({
-        uglifyOptions: {
-          ecma: 6,
-          mangle: false
-        }
-      })
-    ]
-  };
-};
+// const serverConfig = function() {
+//   return {
+//     /**
+//      * Add additional plugins to the compiler.
+//      *
+//      * See: http://webpack.github.io/docs/configuration.html#plugins
+//      */
+//     plugins: [
+//       /**
+//        * Plugin: UglifyJsPlugin
+//        * Description: Minimize all JavaScript output of chunks.
+//        * Loaders are switched into minimizing mode.
+//        *
+//        * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+//        */
+//       new uglifyJsPlugin({
+//         uglifyOptions: {
+//           ecma: 6,
+//           mangle: false
+//         }
+//       })
+//     ]
+//   };
+// };
 
 /**
  * Webpack configuration
@@ -211,5 +211,6 @@ module.exports = function(options, root, settings) {
   return webpackMerge(commonConfig({
     env: ENV,
     platform: options.platform
-  }, root, settings), defaultConfig(), options.platform === 'server' ? serverConfig() : browserConfig(root));
+  // }, root, settings), defaultConfig(), options.platform === 'server' ? serverConfig : browserConfig(root));
+  }, root, settings), defaultConfig(), options.platform === 'server' ? {} : browserConfig(root));
 };
